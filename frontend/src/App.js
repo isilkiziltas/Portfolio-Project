@@ -1,61 +1,37 @@
 
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav, Card, Button } from 'react-bootstrap';
 
 const AdminPanel = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [technologies, setTechnologies] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const techArray = technologies.split(','); // Teknolojiler virgülle ayrılmış olmalı
-
-    const response = await axios.post('http://localhost:3000/add-project', {
-      title,
-      description,
-      technologies: techArray,
-    });
-
-    if (response.status === 201) {
-      alert('Proje başarıyla eklendi');
-    }
-  };
-
   return (
-    <div className="admin-panel">
-      <h2>Proje Ekle</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formTitle">
-          <Form.Label>Proje Başlığı</Form.Label>
-          <Form.Control
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="formDescription">
-          <Form.Label>Proje Açıklaması</Form.Label>
-          <Form.Control
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="formTechnologies">
-          <Form.Label>Teknolojiler (virgülle ayırarak yazınız)</Form.Label>
-          <Form.Control
-            type="text"
-            value={technologies}
-            onChange={(e) => setTechnologies(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Button type="submit">Proje Ekle</Button>
-      </Form>
+    <div className="container-fluid">
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#">Admin Paneli</Navbar.Brand>
+        <Nav className="ml-auto">
+          <Nav.Link href="#">Çıkış</Nav.Link>
+        </Nav>
+      </Navbar>
+
+      <div className="row">
+  <div className="col-md-3">
+    <ul className="nav flex-column">
+      <li className="nav-item">
+        <button className="nav-link active" onClick={() => console.log("Dashboard clicked")}>Dashboard</button>
+      </li>
+      <li className="nav-item">
+        <button className="nav-link" onClick={() => console.log("Kullanıcılar clicked")}>Kullanıcılar</button>
+      </li>
+    </ul>
+   </div>
+        <div className="col-md-9">
+          <Card>
+            <Card.Body>
+              <Card.Title>Dashboard</Card.Title>
+              <Button variant="primary">Yeni Ekle</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
